@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2022 at 09:29 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Waktu pembuatan: 10 Apr 2023 pada 14.06
+-- Versi server: 10.4.25-MariaDB
+-- Versi PHP: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,82 +24,53 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
---
-
-CREATE TABLE `admin` (
-  `idAdmin` int(10) UNSIGNED NOT NULL,
-  `alamat` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jk` char(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `noTelp` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `gambar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `antrian`
+-- Struktur dari tabel `antrian`
 --
 
 CREATE TABLE `antrian` (
-  `idAntrian` int(10) UNSIGNED NOT NULL,
-  `jamPeriksa` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `noAntrian` char(6) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `id_antrian` int(10) UNSIGNED NOT NULL,
+  `no_antrian` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nik` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tanggal_antrian` date NOT NULL,
+  `status` enum('1','0') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `jam_pendaftaran` time NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dokter`
---
-
-CREATE TABLE `dokter` (
-  `idDokter` int(10) UNSIGNED NOT NULL,
-  `jk` char(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `noTelp` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `gambar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alamat` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `jadwal_praktik`
+-- Struktur dari tabel `jadwal_praktik`
 --
 
 CREATE TABLE `jadwal_praktik` (
-  `kodeJadwal` char(6) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tanggal` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `hari` char(8) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jam` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `text` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `jadwal_praktik`
+-- Struktur dari tabel `keluhan_pasien`
 --
 
-INSERT INTO `jadwal_praktik` (`kodeJadwal`, `tanggal`, `hari`, `jam`, `created_at`, `updated_at`) VALUES
-('KDJP1', '12', 'Senin', '03.00 PM', '2022-12-14 00:19:58', '2022-12-14 00:19:58'),
-('KDJP2', '12', 'Senin', '03.00 PM', '2022-12-14 00:19:58', '2022-12-14 00:19:58'),
-('KDJP3', '12', 'Senin', '03.00 PM', '2022-12-14 00:19:58', '2022-12-14 00:19:58'),
-('KDJP4', '12', 'Senin', '03.00 PM', '2022-12-14 00:19:58', '2022-12-14 00:19:58'),
-('KDJP5', '12', 'Senin', '03.00 PM', '2022-12-14 00:19:58', '2022-12-14 00:19:58'),
-('KDJP6', '12', 'Senin', '03.00 PM', '2022-12-14 00:19:58', '2022-12-14 00:19:58'),
-('KDJP7', '12', 'Senin', '03.00 PM', '2022-12-14 00:19:58', '2022-12-14 00:19:58');
+CREATE TABLE `keluhan_pasien` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `antrian_id` int(11) NOT NULL,
+  `keluhan` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `diagnosa` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `dosis_obat` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` enum('1','0') COLLATE utf8mb4_unicode_ci DEFAULT '0',
+  `tanggal_dibuat` date NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
+-- Struktur dari tabel `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -109,35 +80,31 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `migrations`
+-- Dumping data untuk tabel `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1),
-(2, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(3, '2022_12_08_134554_create_pasien_table', 1),
-(4, '2022_12_08_134631_create_admin_table', 1),
-(5, '2022_12_08_134657_create_dokter_table', 1),
-(6, '2022_12_08_134728_create_setting_table', 1),
-(7, '2022_12_08_134802_create_antrian_table', 1),
-(8, '2022_12_08_134849_create_jadwal_praktik_table', 1);
+(8, '2014_10_12_000000_create_users_table', 1),
+(9, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(10, '2022_12_08_134554_create_pasien_table', 1),
+(11, '2022_12_08_134728_create_setting_table', 1),
+(12, '2022_12_08_134802_create_antrian_table', 1),
+(13, '2022_12_08_134849_create_jadwal_praktik_table', 1),
+(14, '2022_12_18_081041_create_keluhan_pasien_table', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pasien`
+-- Struktur dari tabel `pasien`
 --
 
 CREATE TABLE `pasien` (
-  `idPasien` bigint(20) UNSIGNED NOT NULL,
-  `nama` char(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nik` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jenis_kelamin` enum('L','P') COLLATE utf8mb4_unicode_ci NOT NULL,
   `alamat` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jk` char(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `noTelp` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `idJadwalpraktik` int(11) NOT NULL,
-  `idAntrian` int(11) NOT NULL,
-  `diagnosa` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pengobatan` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tanggal_lahir` date NOT NULL,
+  `nomer_telepon` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -145,7 +112,7 @@ CREATE TABLE `pasien` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `personal_access_tokens`
+-- Struktur dari tabel `personal_access_tokens`
 --
 
 CREATE TABLE `personal_access_tokens` (
@@ -164,25 +131,32 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `setting`
+-- Struktur dari tabel `setting`
 --
 
 CREATE TABLE `setting` (
   `idSetting` int(10) UNSIGNED NOT NULL,
-  `logo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama_dokter` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tentang` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `gambar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gambar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lokasi` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `noTelp` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nomer_telepon` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data untuk tabel `setting`
+--
+
+INSERT INTO `setting` (`idSetting`, `nama_dokter`, `tentang`, `gambar`, `lokasi`, `email`, `nomer_telepon`, `created_at`, `updated_at`) VALUES
+(1, 'dr.Iyan Rakhmawati', 'Ini adalah website antrian online', NULL, 'Disini', 'sianton@gmail.com', '089123456789', '2023-04-10 05:57:42', '2023-04-10 05:57:42');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -202,52 +176,48 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`id`, `nama`, `email`, `nomer_telepon`, `jenis_kelamin`, `password`, `alamat`, `gambar`, `level`, `dibuat_oleh`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Administrator', 'admin@gmail.com', '29092002', 'L', '$2y$10$PZP8EyUh/XDYvpzK.r3tG.pc5VR9jQU9.zRhTF6E1HvUYUTQoHIlu', 'Jakarta', NULL, '1', 0, NULL, '2022-12-14 00:19:58', '2022-12-14 00:19:58'),
-(2, 'Dokter', 'dokter@gmail.com', '29092002', 'P', '$2y$10$PZP8EyUh/XDYvpzK.r3tG.pc5VR9jQU9.zRhTF6E1HvUYUTQoHIlu', 'Jakarta', NULL, '2', 0, NULL, '2022-12-14 00:19:58', '2022-12-14 00:19:58');
+(1, 'Administrator', 'admin@gmail.com', '29092002', 'L', '$2y$10$5ugeGauitxXwpEK3hQKije6N2joa8CHDoIqg17U/7fC10DPG4C1s.', 'Jakarta', NULL, '1', 0, NULL, '2023-04-10 05:57:42', '2023-04-10 05:57:42');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`idAdmin`);
-
---
--- Indexes for table `antrian`
+-- Indeks untuk tabel `antrian`
 --
 ALTER TABLE `antrian`
-  ADD PRIMARY KEY (`idAntrian`);
+  ADD PRIMARY KEY (`id_antrian`);
 
 --
--- Indexes for table `dokter`
+-- Indeks untuk tabel `jadwal_praktik`
 --
-ALTER TABLE `dokter`
-  ADD PRIMARY KEY (`idDokter`),
-  ADD UNIQUE KEY `dokter_email_unique` (`email`);
+ALTER TABLE `jadwal_praktik`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `migrations`
+-- Indeks untuk tabel `keluhan_pasien`
+--
+ALTER TABLE `keluhan_pasien`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pasien`
+-- Indeks untuk tabel `pasien`
 --
 ALTER TABLE `pasien`
-  ADD PRIMARY KEY (`idPasien`),
-  ADD UNIQUE KEY `pasien_idjadwalpraktik_unique` (`idJadwalpraktik`),
-  ADD UNIQUE KEY `pasien_idantrian_unique` (`idAntrian`);
+  ADD PRIMARY KEY (`nik`);
 
 --
--- Indexes for table `personal_access_tokens`
+-- Indeks untuk tabel `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
@@ -255,69 +225,63 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Indexes for table `setting`
+-- Indeks untuk tabel `setting`
 --
 ALTER TABLE `setting`
   ADD PRIMARY KEY (`idSetting`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `idAdmin` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `antrian`
+-- AUTO_INCREMENT untuk tabel `antrian`
 --
 ALTER TABLE `antrian`
-  MODIFY `idAntrian` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_antrian` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `dokter`
+-- AUTO_INCREMENT untuk tabel `jadwal_praktik`
 --
-ALTER TABLE `dokter`
-  MODIFY `idDokter` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `jadwal_praktik`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `migrations`
+-- AUTO_INCREMENT untuk tabel `keluhan_pasien`
+--
+ALTER TABLE `keluhan_pasien`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `pasien`
---
-ALTER TABLE `pasien`
-  MODIFY `idPasien` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `personal_access_tokens`
+-- AUTO_INCREMENT untuk tabel `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `setting`
+-- AUTO_INCREMENT untuk tabel `setting`
 --
 ALTER TABLE `setting`
-  MODIFY `idSetting` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idSetting` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
