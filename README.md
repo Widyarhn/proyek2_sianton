@@ -65,10 +65,11 @@ Fitur pada Aplikasi ini meliputi:
 2. `cp .env.example .env`
     - Jika tidak menggunakan Git, bisa rename file `.env.example` menjadi `.env`
 3. Pada terminal `php artisan key:generate`
-4. Buat **database pada mysql** untuk aplikasi ini (`dbsianton`)
+4. Untuk mengakses **database pada mysql**, pastikan untuk mengaktifkan terlebih dahulu xampp atau aplikasi database lainnya
+5. Buat **database pada mysql** untuk aplikasi ini (`dbsianton`)
      - Atau bisa impor dari file database yang telah tersedia didalam folder ini pada mysql (`dbsianton.sql`)
-5. **Setting database** pada file `.env`
-6. Samakan kode berikut pada pada file `.env` yang sudah ada (jika belum ada tambahkan)
+6. **Setting database** pada file `.env`
+7. Samakan kode berikut pada pada file `.env` yang sudah ada (jika belum ada tambahkan)
     ```
     APP_NAME=SIANTON
 
@@ -86,12 +87,12 @@ Fitur pada Aplikasi ini meliputi:
 
     FILESYSTEM_DISK = public
     ```
-7. Ketik `php artisan migrate --seed`
+8. Ketik `php artisan migrate --seed`
     - Jika sudah ada data didalam database `dbsianton`, bisa menggunakan `php artisan migrate:refresh --seed`
-8. Ketik `php artisan storage:link`
+9. Ketik `php artisan storage:link`
     - Pastikan pada folder public tidak ada folder storage (jika ada, folder storage pada public/storage bisa dihapus saja)
-9. Ketik `php artisan serve`
-10. Selesai
+10. Ketik `php artisan serve`
+11. Selesai
 
 <hr>
 
