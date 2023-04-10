@@ -1,6 +1,6 @@
 ![Aplikasi SIANTON](public/admin/assets/img/logo_sianton.png "Aplikasi SIANTON")
 
-Aplikasi SIANTON adalah
+Aplikasi SIANTON adalah Aplikasi sebuah sistem pendaftaran antrian berobat secara online yang dapat diakses melalui website. Aplikasi ini akan memungkinkan pasien untuk mendaftar antrian berobat secara online dan mengakses informasi antrian terkini. Selain itu, aplikasi ini juga akan mempermudah pegawai dalam mengelola data seperti data admin, data dokter, dan data pasien melalui proses input dan pencarian data yang terkomputerisasi, sehingga akan lebih efisien dan cepat. Dengan adanya aplikasi ini, diharapkan layanan kesehatan di praktik dokter umum dr. Iyan Rakhmawati dapat menjadi lebih maju dan nyaman bagi pasien serta meningkatkan efisiensi dalam pengelolaan data medis.
 
 <hr>
 
@@ -65,7 +65,10 @@ Fitur pada Aplikasi ini meliputi:
 2. `cp .env.example .env`
     - Jika tidak menggunakan Git, bisa rename file `.env.example` menjadi `.env`
 3. Pada terminal `php artisan key:generate`
-4. Untuk mengakses **database pada mysql**, pastikan untuk mengaktifkan terlebih dahulu xampp atau aplikasi database lainnya
+4. Untuk mengakses **database pada mysql**, pastikan untuk mengaktifkan terlebih dahulu xampp atau databse lainnya dengan cara berikut :
+    - Buka xampp
+    - Aktifkan `Apache dan Mysql` pada xampp
+    - Lalu akses alamat ` http://localhost/phpmyadmin` untuk mengakses database atau klik admin milik mysql pada xampp
 5. Buat **database pada mysql** untuk aplikasi ini (`dbsianton`)
      - Atau bisa impor dari file database yang telah tersedia didalam folder ini pada mysql (`dbsianton.sql`)
 6. **Setting database** pada file `.env`
