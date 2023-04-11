@@ -46,9 +46,45 @@ Fitur pada Aplikasi ini meliputi:
 
 ### Spesifikasi dan Kebutuhan Software
 
-- PHP ^7.2
-- Laravel 6.x
-- Database MySQL atau MariaDB
+1. spesifikasi untuk menjalankan aplikasi berbasis web
+
+Agar aplikasi ini dapat berjalan dengan baik, maka dibutuhkan seperangkat komputer dengan spesifikasi:
+ 
+RAM 
+ - 8,00 GB (7,77 GB usable)
+
+Processor
+ - 11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz   2.42 GHz
+
+System type 
+ - 64-bit operating system, x64-based processor
+
+Leptop 
+ - 14inch
+
+Karena aplikasi ini bersifat WEB, maka perangkat dengan spesifikasi dibawah perangkat keras yang digunakan pada pembuatan aplikasi ini tetap dapat digunakan dan mengakses aplikasi ini dengan baik.
+
+2. Kebutuhan perangkat lunak untuk menjalankan program
+
+Perangkat lunak adalah perangkat-perangkat tambahan berupa sistem yang digunakan untuk menjalankan dan membuat aplikasi ini. Berikut adalah Perangkat lunak yang digunakan untuk membuat aplikasi ini:
+
+Sistem Operasi
+ - Windows11
+
+DataBase
+ - Mysql versi 8.1.6
+
+Aplikasi Pembuatan
+ - Visual Studio Code
+
+Browser
+ - google Chrome
+
+Framework
+ - Laravel versi 10.3.3
+ - Php versi 8.1.6
+ - boostrap versi 5.1
+
 
 ### Cara Install
 
